@@ -1,133 +1,90 @@
-#------------------------------------------------------день недели----------------------------------------------------------------------
-# def name(a):
-#     if a>0 and a<8:
-#         if a==1:
-#             return'понедельник'
-#         elif a==2:
-#             return('вторник')
-#         elif a==3:
-#             return('среда')
-#         elif a==4:
-#             return('четверг')
-#         elif a==5:
-#             return('пятница')
-#         elif a==6:
-#             return('суббота')
-#         else:
-#             return('воскресенье')
-#     else:
-#         print('вне диапазона')  
-
+# -------------------------------------------Сумма всех чисел------------------------------------------------
+# sum=0
+# num=0
 # try:
-#     a=int(input('Введите число: '))
-#     print(name(a))
+#     num=float(input("Введите число: "))
 # except:
-#     print('не является числом')
+#     print('Необходимо ввести число, допущена ошибка!')
+# while num %1!=0:   
+#     num=round(num*10, 7)
+# while num!=0:
+#     sum+=(num%10)
+#     num/=10
+#     num=int(num)
+# print('Сумма всех чисел = ', sum)
 
-#-------------------------------------------------------проверка истинности-------------------------------------------------------------
-# for x in True, False:
-#     for y in True, False: 
-#         for z in True, False:
-#                 print(not (x or y or z) == (not x and not y and not z))                
+# -------------------------------------------Произведение чисел------------------------------------------------
 
-#-------------------------------------------------------определение четверти-------------------------------------------------------------
+# def castomMultiply(n):
+#     mult=1
+#     while n!=1:
+#         mult*=n
+#         n-=1
+#     return mult
+
+# num=0
+# mas=[]
 # try:
-#     x=int(input('введите первое число: '))
-#     y=int(input('введите первое число: '))
+#     num = int(input('Введите целое положительное число: '))
 # except:
-#     print('неверные значения')
+#     print('Необходимо ввести целое положительное число, допущена ошибка!')    
 
-# if(x!=0 and y!=0):
-#     if(x>0 and y>0):
-#         print('1я четверть')
-#     elif(x>0 and y<0):
-#         print('4я четверть')   
-#     elif(x<0 and y<0):
-#         print('3я четверть')   
-#     elif(x<0 and y>0):
-#         print('2я четверть')   
-# else:
-#     print('числа не должны равняться 0!')
+# for i in range(1,num+1):  
+#     mas.append(castomMultiply(i))
+# print(mas)
 
+# -------------------------------------------Поиск текста в тексте------------------------------------------------
 
+# a=input('Введите строку, которую будем искать в тексте: ')
+# b=input('Введите текст: ')
+# mas=b.split(a)
+# print('Количетва вхождений одной строки в другую: ', len(mas)-1)
 
-from ast import operator
-from re import L
-
-#----------------------------------------------------------------калькулятор--------------------------------------------------
-
-# def calculator(a, oper, b):    
-#     if oper=='+':
-#         return (a+b)
-#     elif oper=='-':
-#         return (a-b)
-#     elif oper=='/':
-#         if b==0:
-#             print('На 0 делить нельзя')
-#             return
-#         else:
-#             return (a/b)
-#     elif oper=='*':
-#         return (a*b)   
-#     elif oper=='pow':
-#         return (a**b)   
-#     elif oper=='mod':
-#         return (a%b)  
-#     else: 
-#         print('Неверная операция ')
-#         return        
-
+# -----------------------------------------Расстояние между точками------------------------------------------------
+# x=0
 # try:
-#     a=float(input('a= '))
-#     oper = input('Введите операцию: ')
-#     b=float(input('b= '))
-# except: 
-#     print('Введено неверное число')
-# print(calculator(a,oper, b))
+#     x=int(input('Введите колтчесво пространств: '))
+# except:
+#     print('Введено неверное значение!')    
+# coordFirst = []
+# coordSecond =[]
+# print('Введите координаты первой точки')
 
-#---------------------------------------------------------сортировка массива----------------------------------------------------------         
-from random import randint
+# for i in range(x):
+#     try:
+#         coordFirst.append(int(input(f'Координата номер {i+1} ')))
+#     except:
+#         print('Неверно введено число')
 
-def sort(list):  
-    for i in range(0, len(list)-1):
-        for j in range(0, len(list)-1):
-            if list[j]>list[j+1]:
-                a=list[j]
-                list[j] = list[j+1]
-                list[j+1] = a
-    
+# print('Введите координаты второй точки')
 
-def masCreator(x,y):
-    mas=[[0]*y for i in range(x)]
-    
-    for i in range(len(mas)):
-        for j in range(len(mas[i])):            
-            mas[i][j]=randint(0, 15)
-            
-    return mas
+# for i in range(x):
+#     try:
+#         coordSecond.append(int(input(f'Координата номер {i+1} ')))
+#     except:
+#         print('Неверно введено число')
+# diff = []
+# result=0
 
-try:
-    x=int(input('Количество строк в массиве '))
-    y=int(input('Количество столбцов в массиве '))
-except:
-    print('не является числом')
+# for i in range(x):
+#     diff.append(int(coordSecond[i])-int(coordFirst[i]))
+#     result+=diff[i]**2
+# print('Расстояние между точками: ', result**0.5)
 
-mas=masCreator(x,y)
-print('Изначальный массив ',mas)
-listSort = []
+# -----------------------------------------Истина-----------------------------------------------
 
-for i in range (len(mas)): 
-      for j in range ( len(mas[i]) ): 
-        listSort.append(mas[i][j])        
-       
-sort(listSort)
+import random
+import time
 
-k=0
+countPred = random.randint(5,25)
+t = time.time()
+for i in range(100):
+    leftSide = random.choice([True, False])
+    rightSide = not random.choice([True, False])
+    for i in range(countPred-1):
+        leftSide = leftSide or random.choice([True, False])
+        rightSide = rightSide and not random.choice([True, False])
 
-for i in range (x):
-    for j in range (y): 
-        mas[i][j]=listSort[k]
-        k+=1
-print('Отсортированный массив ', mas)
-
-
+    resultPr = (not leftSide == rightSide)
+t2 = time.time()
+print('Время работы программы в сек: ', t2-t)
