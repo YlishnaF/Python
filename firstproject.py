@@ -1,90 +1,45 @@
-# -------------------------------------------Сумма всех чисел------------------------------------------------
-# sum=0
-# num=0
-# try:
-#     num=float(input("Введите число: "))
-# except:
-#     print('Необходимо ввести число, допущена ошибка!')
-# while num %1!=0:   
-#     num=round(num*10, 7)
-# while num!=0:
-#     sum+=(num%10)
-#     num/=10
-#     num=int(num)
-# print('Сумма всех чисел = ', sum)
-
-# -------------------------------------------Произведение чисел------------------------------------------------
-
-# def castomMultiply(n):
-#     mult=1
-#     while n!=1:
-#         mult*=n
-#         n-=1
-#     return mult
-
-# num=0
-# mas=[]
-# try:
-#     num = int(input('Введите целое положительное число: '))
-# except:
-#     print('Необходимо ввести целое положительное число, допущена ошибка!')    
-
-# for i in range(1,num+1):  
-#     mas.append(castomMultiply(i))
-# print(mas)
-
-# -------------------------------------------Поиск текста в тексте------------------------------------------------
-
-# a=input('Введите строку, которую будем искать в тексте: ')
-# b=input('Введите текст: ')
-# mas=b.split(a)
-# print('Количетва вхождений одной строки в другую: ', len(mas)-1)
-
-# -----------------------------------------Расстояние между точками------------------------------------------------
-# x=0
-# try:
-#     x=int(input('Введите колтчесво пространств: '))
-# except:
-#     print('Введено неверное значение!')    
-# coordFirst = []
-# coordSecond =[]
-# print('Введите координаты первой точки')
-
-# for i in range(x):
-#     try:
-#         coordFirst.append(int(input(f'Координата номер {i+1} ')))
-#     except:
-#         print('Неверно введено число')
-
-# print('Введите координаты второй точки')
-
-# for i in range(x):
-#     try:
-#         coordSecond.append(int(input(f'Координата номер {i+1} ')))
-#     except:
-#         print('Неверно введено число')
-# diff = []
-# result=0
-
-# for i in range(x):
-#     diff.append(int(coordSecond[i])-int(coordFirst[i]))
-#     result+=diff[i]**2
-# print('Расстояние между точками: ', result**0.5)
-
-# -----------------------------------------Истина-----------------------------------------------
-
-import random
-import time
-
-countPred = random.randint(5,25)
-t = time.time()
-for i in range(100):
-    leftSide = random.choice([True, False])
-    rightSide = not random.choice([True, False])
-    for i in range(countPred-1):
-        leftSide = leftSide or random.choice([True, False])
-        rightSide = rightSide and not random.choice([True, False])
-
-    resultPr = (not leftSide == rightSide)
-t2 = time.time()
-print('Время работы программы в сек: ', t2-t)
+#------------------------------Сумма нечетных чисел------------------------------
+# mas = [4,3,2,8,5,2,0]
+# sum = 0
+# for i in range (len(mas)):
+#     if(i%2==0):
+#         sum+=mas[i]
+# print('Сумма элементов на нечетных позициях: ', sum, "для массива ", mas)
+#------------------------------Произведение пар чисел списка------------------------------
+# mas = [2, 3, 4, 5, 6]
+# print('Массив ', mas)
+# result = []
+# while (len(mas)!=0):
+#     if len(mas)==1:
+#         result.append(mas[0]**2)
+#         break
+#     result.append(mas.pop(0)*mas.pop(-1))
+# print("Произведение пар чисел для массива равно ", result)
+#------------------------------Разница между макс и мин значением дробной части элементов------------------------------
+# mas = [1.1, 1.2, 3.1, 5, 10.01]
+# masCor= []
+# print('Массив: ', mas)
+# for i in range(len(mas)):
+#     k = round(mas[i]%1, 7)
+#     if(k!=0):
+#          masCor.append(round(mas[i]%1, 9))
+# max=masCor[0]
+# min=masCor[0]
+# for i in range(1,len(masCor)):
+#     if(max<masCor[i]): max=masCor[i]
+#     if(min>masCor[i]): min=masCor[i]
+# print('Разница: ',max-min)
+#------------------------------Преобразовывать десятичное число в двоичное------------------------------
+n=1175
+print('Число для перевода в двоичную систему ', n)
+print('Представдение в двоичной системе числа c использованием встроенной функции ', bin(n))  
+dNum = []
+while n!=0:
+    if n%2!=0:
+        dNum.append(1)
+        n=n//2
+    else:
+        dNum.append(0)
+        n=n//2
+      
+print('Представдение в двоичной системе числа', "".join(map(str, dNum[::-1])))
