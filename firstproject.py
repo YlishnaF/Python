@@ -1,152 +1,102 @@
-# ----------------------------------------------Игра с конфетами----------------------------------------------------
+#                       Крестики-нолики
 # import random
-# import re
-# from secrets import choice
+# pole = [[".",".","."],[".",".","."],[".",".","."]]
+# availableStep = ['00', '01', '02', '10','11','12','20','21','22']
+# winCombinationsHuman =  [['00','01','02'], ['10','11','12'],['20','21','22'],['00', '10','20'],['01','11','21'],['02','12','22'],['00','11','22'],['02','11','20']]
+# winCombinationsBot =  [['00','01','02'], ['10','11','12'],['20','21','22'],['00', '10','20'],['01','11','21'],['02','12','22'],['00','11','22'],['02','11','20']]
 
-# candies = 201
-# print('Сыграем в короля конфет, сейчас узнаем, чей ход будет первым')
-# hod = choice([1,2])
-# if (hod==1):
-#     print('Ваш первый ход')
-# else:
-#     print('Ходит искусственный интеллект Петя')  
+# def checkWin(hod):
+#     if(hod==0):
+#         if list(filter(lambda x: len(x)==0, winCombinationsHuman)):
+#             print('Вы выйграли!')
+#             exit()
+#     elif(hod==1):
+#         if list(filter(lambda x: len(x)==0, winCombinationsBot)):
+#             print('Бот победил!')
+#             exit()
 
-# def botStep(candies):
-#     if candies<=28:
-#         return candies
-#     elif candies<=57:
-#         return candies-29
-#     elif candies<=85:
-#         return random.randint(1,candies-58)
-#     else:
-#         return random.randint(1,28)
+# def printPole(mas):
+#     for i in range(len(mas)):
+#         for j in range(len(mas[i])):
+#             print(mas[i][j], " ", end="")
+#         print('\n', end="")
 
-# while (candies!=0):
-#     print('Осталось ', candies, ' конфет')
-#     if(hod%2!=0):
-#         hod+=1
-#         amount=0
-#         notAcceptAnswer=True
-#         while (notAcceptAnswer):
-#             try:
-#                 amount = int(input('Введите количество конфет, которое хотите забрать: '))
-#             except:
-#                 print('')
-#             if (candies-amount)>0 and amount<29 and amount!=0:
-#                 notAcceptAnswer=False
-#             else:                
-#                 print('Неверное количество конфет или не число, можно взять от 1 до 28 конфеты, но не больше, чем лежит на столе, попробуйте еще раз')
-#                 continue
-#         candies-=amount        
-#         if(candies==0):
-#             print('Вы победили бота!')
-#     else:
-#         hod+=1
-#         botAmount = botStep(candies)
-#         candies-=botAmount
-#         print('Петя взял ', botAmount, ' конфет')
-#         if(candies==0):
-#             print('Исскусивенный интеллект победил!')
-# ---------------------------------------------- RLE алгоритм----------------------------------------------------
-# import re
+# def removeInComb(comb, s):
+#     for i in range(len(comb)):
+#         mas = list(filter(lambda x: x!=s, comb[i]))
+#         comb[i] = mas
 
-# def codingFile(fromPath, toPath):
-#     data=open(fromPath, 'r', encoding="utf-8")
-#     dataTo=open(toPath, 'w', encoding="utf-8")
-#     res =[]
-#     for line in data:
-#         res.append(line)
-#     k=1
-#     for i in range(len(res)):
-#         arr=list(res[i])
-#         ch =arr[i]
-#         for j in range(1, len(arr)):
-#             if(arr[j]==ch): k+=1
-#             else: 
-#                 dataTo.write(str(k)+ch)
-#                 ch=arr[j]
-#                 k=1
-#         dataTo.write(str(k)+ch)
+# def botStep():
+#     step=False
+#     win = list(filter(lambda x: len(x)==1, winCombinationsBot))
+#     if(len(win)>0):
+#         for i in range(len(win)):
+#             for j in range(len(win[i])):
+#                 if(win[i][j] in availableStep):
+#                     step=True
+#                     pole[int(list(win[i][j])[0])][int(list(win[i][j])[1])]='o'
+#                     removeInComb(winCombinationsBot, win[i][j])
+#                     availableStep.remove(win[i][j])
+#     if(step==False):
+#         winCombinationsHuman.sort(key=len)          
+#         for i in range(len(winCombinationsHuman)):
+#             for j in range(len(winCombinationsHuman[i])):
+#                 if(winCombinationsHuman[i][j] in availableStep):
+#                     pole[int(list(winCombinationsHuman[i][j])[0])][int(list(winCombinationsHuman[i][j])[1])]='o'
+#                     removeInComb(winCombinationsBot, winCombinationsHuman[i][j])
+#                     availableStep.remove(winCombinationsHuman[i][j])
+#                     return
 
-# codingFile('file.txt','result.txt')
+# hod=random.choice([0,1])
 
-# def decording(pathFrom, pathTo):
-#     regex = re.compile(r'(\d+[a-zA-Z\n])')
-#     data=open(pathFrom, 'r', encoding="utf-8")
-#     dataTo=open(pathTo, 'w', encoding="utf-8")
-#     res =[]
-#     for line in data:
-#         res.append(line)
-#     k=1
-#     for i in range(len(res)):
-#         matches =regex.findall(res[i])
-#         for j in range(len(matches)):
-#             arr = [list(matches[j])[len(matches[j])-1] for k in range (int(matches[j][:-1]))]
-#             for n  in range(len(arr)):
-#                 dataTo.write(arr[n])
+# while(True):
+#     if(len(availableStep)==0):
+#         print('Ничья')
+#         exit()
+#     if hod==0:
+#         print('Ваш ход')
+#         k = input('Введите координаты поля в формате 01, где 0 - координата по оси x, 1 - координата по оси y ')
+#         if(k in availableStep):
+#             pole[int(list(k)[0])][int(list(k)[1])]='x'
+#             availableStep.remove(k)
+#             removeInComb(winCombinationsHuman, k)
+#             printPole(pole)
+#             checkWin(hod)
+#             hod=1
+#     elif hod==1:
+#         print('Ходит бот')
+#         botStep()
+#         printPole(pole)
+#         checkWin(hod)
+#         hod=0
 
-#     dataTo.close
-#     data.close
-
-# decording('result.txt','file.txt')
-
-# ----------------------------------------------Удалить слова----------------------------------------------------
-# import re
-# text ='aбввап aапбв aбв впварпа вапы'
-# words = text.split()
-# for word in words:
-#     if('aбв' in word):
-#         words.remove(word)
-# print('Из строки: ',text, ' удалили слова, которые содержат абв, в результате получили: ', ' '.join(words))
-
-# ----------------------------------------------Сумма квадратного уравнения----------------------------------------------------
-# например, 5*x^3 + 2*x^2 + 6 и 7*x^2+6*x+3 , Тогда их сумма будет равна 5*x^3 + 9*x^2 + 6*x + 9
+#                               Калькулятор
 import re
-l1='5x3-2x2-6'
-l2='-87x2-16x+3'
-dic ={}
 
-def createMap(equation):
-    regex = re.compile(r'(-?\d+)x+')
-    regex2 = re.compile(r'(x-?\d)')
-    regex3=re.compile(r'(-?\d)$')
-    matches = regex.findall(equation)
-    matches2 = regex2.findall(equation)
-    matches3 = regex3.findall(equation)
-    if (len(matches)-len(matches2))==1:
-        if('x') in dic: 
-            dic['x']=int(matches[len(matches)-1])+int(dic['x'])
-        else:
-            dic['x']=int(matches[len(matches)-1])
-    for i in range (len(matches2)):
-        if(matches2[i]) in dic:
-            dic[matches2[i]]=int(matches[i])+int(dic[matches2[i]])
-        else:
-            dic[matches2[i]]=int(matches[i])
-    if len(matches3)!=0:
-        if('0' in dic):
-            dic['0']=int(matches3[0])+int(dic['0'])
-        else:
-            dic['0']=int(matches3[0])
+actions = {
+  "*": lambda x, y: str(int(x) * int(y)),
+  "/": lambda x, y: str(int(x) / int(y)),
+  "+": lambda x, y: str(int(x) + int(y)),
+  "-": lambda x, y: str(int(x) - int(y))
+}
 
-createMap(l1)
-createMap(l2)
+firstExpReg = r"\((.+?)\)"
+symbol=r"(?!^)[\*\\\+\-]"
+r = r"-?\d+[\*\\\+\-]-?\d+"
 
-sorted_dic = dict(sorted(dic.items(),reverse=True))
-result=''
-for key, value in sorted_dic.items():
-    if(key=='0'):
-        if(value>0):    
-            result=result+"+"+str(value)
-            continue
-        else:
-            result=result+str(value)
-            continue
+exp = "5*(2-9)+6"
+match2 = re.findall(firstExpReg,exp)
+for i in range(len(match2)):
+    s=re.findall(symbol, match2[i])
+    calc=actions.get(s[0])
+    exp= exp.replace(match2[i], calc(match2[i].split(s[0])[0], match2[i].split(s[0])[1]))
+exp=exp.replace('(','').replace(')','')
 
-    if(value>0):    
-        result=result+"+"+str(value)+key
-    else:
-        result=result+str(value)+key
-if(result.startswith('+')):
-    result = result.replace('+', '', 1) 
-print("Cуммой уравнений {} и {} является {}".format(l1,l2, result))
+while(re.search(symbol,exp)!=None):
+    match=re.findall(r,exp)
+    for i in range(len(match)):
+        s=re.findall(symbol, match[i])
+        calc=actions.get(s[0])
+        exp= exp.replace(match[i], calc(match[i].split(s[0])[0], match[i].split(s[0])[1]))
+
+print('результат вычислений уравнения 5*(2-9)+6:',exp)
